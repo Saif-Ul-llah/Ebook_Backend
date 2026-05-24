@@ -31,10 +31,14 @@ app.use("/api", allRoutes);
 
 app.use(errorHandler);
 
-connectDatabase().then(() => {
+export const databaseReady = connectDatabase();
+
+if (require.main === module) {
+  databaseReady.then(() => {
   httpServer.listen(appConfig.port, () => {
     console.log(
       `Server is running on: ${appConfig.appUrl || "http://localhost:5000"}`
     );
   });
-});
+  });
+}
