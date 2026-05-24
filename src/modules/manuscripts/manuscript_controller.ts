@@ -60,6 +60,29 @@ class ManuscriptController {
       );
     }
   );
+
+  public static claimMyManuscripts = asyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
+      const user = (req as any).user;
+
+      if (!user?.id || !user?.email) {
+        return next(HttpError.unauthorized("Unauthorized"));
+      }
+
+      const manuscripts = await ManuscriptServices.claimMyManuscriptsService(
+        user.id,
+        user.email
+      );
+
+      return sendResponse(
+        res,
+        200,
+        "Manuscripts claimed successfully",
+        manuscripts,
+        "success"
+      );
+    }
+  );
 }
 
 export default ManuscriptController;

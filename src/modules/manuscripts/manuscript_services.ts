@@ -9,6 +9,10 @@ class ManuscriptServices {
   public static myManuscriptsService = async (customerId: string, email?: string) => {
     return ManuscriptRepo.findByCustomer(customerId, email);
   };
+
+  public static claimMyManuscriptsService = async (customerId: string, email: string) => {
+    return ManuscriptRepo.claimByEmail(customerId, email);
+  };
 }
 
 export default ManuscriptServices;

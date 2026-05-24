@@ -50,6 +50,18 @@ class ManuscriptRepo {
       createdAt: manuscript.createdAt,
     }));
   };
+
+  public static claimByEmail = async (customerId: string, email: string) => {
+    await ManuscriptModel.updateMany(
+      {
+        email: email.toLowerCase(),
+        $or: [{ customerId: { $exists: false } }, { customerId: "" }, { customerId: null }],
+      },
+      { $set: { customerId } }
+    );
+
+    return ManuscriptRepo.findByCustomer(customerId, email);
+  };
 }
 
 export default ManuscriptRepo;
