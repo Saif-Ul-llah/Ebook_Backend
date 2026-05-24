@@ -12,6 +12,11 @@ interface AppConfig {
   emailHost: string;
   emailPort: number;
   emailTo: string;
+  r2AccountId: string;
+  r2AccessKeyId: string;
+  r2SecretAccessKey: string;
+  r2BucketName: string;
+  r2PublicUrl: string;
 }
 
 export const appConfig: AppConfig = {
@@ -28,4 +33,9 @@ export const appConfig: AppConfig = {
   emailPort: parseInt(process.env.EMAIL_PORT || "465", 10),
   emailTo: process.env.EMAIL_TO || "fullstackwebsitedeveloper11@gmail.com",
   googleMapsKey: process.env.GOOGLE_MAPS_API_KEY || "",
+  r2AccountId: process.env.R2_ACCOUNT_ID || "",
+  r2AccessKeyId: process.env.R2_ACCESS_KEY_ID || "",
+  r2SecretAccessKey: process.env.R2_SECRET_ACCESS_KEY || "",
+  r2BucketName: process.env.R2_BUCKET_NAME || "",
+  r2PublicUrl: process.env.R2_PUBLIC_URL || "",
 };

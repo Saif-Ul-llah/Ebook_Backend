@@ -56,7 +56,16 @@ class AuthServices {
 
     await AuthRepo.updateRefreshToken(user.id, refreshToken);
 
-    return { accessToken, refreshToken };
+    return {
+      accessToken,
+      refreshToken,
+      user: {
+        id: user.id,
+        role: user.role,
+        fullName: user.fullName,
+        email: user.email,
+      },
+    };
   };
 
   public static forgotPasswordService = async (email: string) => {

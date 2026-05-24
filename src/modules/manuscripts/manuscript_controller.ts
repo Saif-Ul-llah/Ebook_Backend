@@ -6,6 +6,7 @@ import {
   Request,
   Response,
   sendResponse,
+  uploadToR2,
 } from "../../imports";
 import ManuscriptServices from "./manuscript_services";
 
@@ -19,8 +20,11 @@ class ManuscriptController {
       }
 
       const user = (req as any).user;
+      const file = (req as any).file as Express.Multer.File | undefined;
+      const uploadedFile = file ? await uploadToR2(file) : undefined;
       const manuscript = await ManuscriptServices.createService({
         ...value,
+        ...uploadedFile,
         customerId: user?.id,
       });
 
@@ -42,7 +46,10 @@ class ManuscriptController {
         return next(HttpError.unauthorized("Unauthorized"));
       }
 
-      const manuscripts = await ManuscriptServices.myManuscriptsService(user.id);
+      const manuscripts = await ManuscriptServices.myManuscriptsService(
+        user.id,
+        user.email
+      );
 
       return sendResponse(
         res,

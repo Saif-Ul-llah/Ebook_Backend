@@ -8,4 +8,9 @@ export interface ManuscriptInput {
   projectTitle: string;
   genre: string;
   message?: string;
+  fileKey?: string;
+  fileName?: string;
+  fileType?: string;
+  fileSize?: number;
+  fileUrl?: string;
 }

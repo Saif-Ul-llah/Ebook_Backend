@@ -18,6 +18,11 @@ export interface IManuscript extends Document {
   projectTitle: string;
   genre: string;
   message?: string;
+  fileKey?: string;
+  fileName?: string;
+  fileType?: string;
+  fileSize?: number;
+  fileUrl?: string;
   status: ManuscriptStatus;
   createdAt: Date;
 }
@@ -33,6 +38,11 @@ const manuscriptSchema = new Schema<IManuscript>(
     projectTitle: { type: String, required: true, trim: true },
     genre: { type: String, required: true, trim: true },
     message: { type: String, trim: true },
+    fileKey: { type: String, trim: true },
+    fileName: { type: String, trim: true },
+    fileType: { type: String, trim: true },
+    fileSize: { type: Number },
+    fileUrl: { type: String, trim: true },
     status: {
       type: String,
       enum: Object.values(ManuscriptStatus),

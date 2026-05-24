@@ -6,8 +6,8 @@ class ManuscriptServices {
     return ManuscriptRepo.create(payload);
   };
 
-  public static myManuscriptsService = async (customerId: string) => {
-    return ManuscriptRepo.findByCustomer(customerId);
+  public static myManuscriptsService = async (customerId: string, email?: string) => {
+    return ManuscriptRepo.findByCustomer(customerId, email);
   };
 }
 

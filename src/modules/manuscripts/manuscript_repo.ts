@@ -14,13 +14,20 @@ class ManuscriptRepo {
       projectTitle: manuscript.projectTitle,
       genre: manuscript.genre,
       message: manuscript.message,
+      fileKey: manuscript.fileKey,
+      fileName: manuscript.fileName,
+      fileType: manuscript.fileType,
+      fileSize: manuscript.fileSize,
+      fileUrl: manuscript.fileUrl,
       status: manuscript.status,
       createdAt: manuscript.createdAt,
     };
   };
 
-  public static findByCustomer = async (customerId: string) => {
-    const manuscripts = await ManuscriptModel.find({ customerId })
+  public static findByCustomer = async (customerId: string, email?: string) => {
+    const manuscripts = await ManuscriptModel.find({
+      $or: [{ customerId }, ...(email ? [{ email: email.toLowerCase() }] : [])],
+    })
       .sort({ createdAt: -1 })
       .lean<IManuscript[]>();
 
@@ -34,6 +41,11 @@ class ManuscriptRepo {
       projectTitle: manuscript.projectTitle,
       genre: manuscript.genre,
       message: manuscript.message,
+      fileKey: manuscript.fileKey,
+      fileName: manuscript.fileName,
+      fileType: manuscript.fileType,
+      fileSize: manuscript.fileSize,
+      fileUrl: manuscript.fileUrl,
       status: manuscript.status,
       createdAt: manuscript.createdAt,
     }));
