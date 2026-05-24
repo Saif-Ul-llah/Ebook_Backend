@@ -16,5 +16,10 @@ router.post(
   checkToken,
   ManuscriptController.claimMyManuscripts
 );
+router.put(
+  "/my-manuscripts/:manuscriptId",
+  checkToken,
+  ManuscriptController.updateMyManuscript
+);
 
 export default router;

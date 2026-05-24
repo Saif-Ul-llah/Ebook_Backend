@@ -2,6 +2,8 @@ import { appConfig, allRoutes, connectDatabase, errorHandler, Server } from "./i
 import { createServer } from "http";
 import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
+import 'dotenv/config';
+
 
 export const app = express();
 const httpServer = createServer(app);

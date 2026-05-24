@@ -13,6 +13,15 @@ class ManuscriptServices {
   public static claimMyManuscriptsService = async (customerId: string, email: string) => {
     return ManuscriptRepo.claimByEmail(customerId, email);
   };
+
+  public static updateMyManuscriptService = async (
+    manuscriptId: string,
+    customerId: string,
+    email: string,
+    payload: Partial<ManuscriptInput>
+  ) => {
+    return ManuscriptRepo.updateMine(manuscriptId, customerId, email, payload);
+  };
 }
 
 export default ManuscriptServices;
