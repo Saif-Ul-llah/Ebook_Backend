@@ -83,6 +83,42 @@ class ManuscriptController {
       );
     }
   );
+
+  public static updateMyManuscript = asyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
+      const user = (req as any).user;
+      const { manuscriptId } = req.params;
+
+      if (!user?.id || !user?.email) {
+        return next(HttpError.unauthorized("Unauthorized"));
+      }
+
+      const { error, value } = manuscriptValidation.validate({ ...req.body });
+
+      if (error) {
+        return next(HttpError.validationError(error.details[0].message));
+      }
+
+      const manuscript = await ManuscriptServices.updateMyManuscriptService(
+        manuscriptId,
+        user.id,
+        user.email,
+        value
+      );
+
+      if (!manuscript) {
+        return next(HttpError.notFound("Manuscript not found"));
+      }
+
+      return sendResponse(
+        res,
+        200,
+        "Manuscript brief updated successfully",
+        manuscript,
+        "success"
+      );
+    }
+  );
 }
 
 export default ManuscriptController;
